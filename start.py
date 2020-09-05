@@ -1,5 +1,8 @@
 import json 
+import voiceassistant
 from pymongo import MongoClient   
+
+voiceassistant.main()
 
 myclient = MongoClient("mongodb://localhost:27017/")  
 
