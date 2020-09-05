@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Form</title>
+</head>
+<body>
+		<form action= "/registration" method="post">
+		<h1> Registration Form</h1>
+<label for="fname">First name:</label><br>
+  		<input type="text" id="fname" name="fname" placeholder="First name" required><br>
+  		<label for="lname">Last name:</label><br>
+  		<input type="text" id="lname" name="lname" placeholder="Last name" required><br>
+  		<label for="address">Address:</label><br>
+  		<input type="text" id="address" name="address" placeholder="Address" required><br>
+  		<label for="city">City:</label><br>
+  		<input type="text" id="city" name="city" placeholder="City" required><br>
+  		<label for="state">State:</label><br>
+  		<input type="text" id="state" name="state" placeholder="State" required><br>
+  		<label for="pin">Pin Code:</label><br>
+  		<input type="number" id="pin" name="pin" placeholder="Pincode" required><br>
+  		<label for="country">Country:</label><br>
+  		<input type="text" id="country" name="country" placeholder="Country" required><br>
+  		<label for="phone">Phone Number:</label><br>
+  		<input type="number" id="phone" name="phone" placeholder="Phone number" required><br>
+  		<label for="email">E-mail:</label><br>
+		  <input type="email" id="email" name="email" placeholder="Email id" required><br>
+		  <label for="gender">Gender:</label><br>
+  		<input type="radio" id="male" name="gender" value="male">
+  		<label for="male">Male</label><br>
+  		<input type="radio" id="female" name="gender" value="female">
+  		<label for="female">Female</label><br>
+  		<input type="radio" id="other" name="gender" value="other">
+  		<label for="other">Other</label>
+		<br>
+  		<label for="dob">Date of birth:</label><br>
+  		<input type="date" id="dob" name="dob" placeholder="DOB" required><br>
+
+  		<br>
+  		In case of emergency<br><br>
+  		<label for="emergency">Emergency Contact:</label><br><br>
+  		<label for="efname">First name:</label><br>
+  		<input type="text" id="efname" name="efname" placeholder=" first name" required><br>
+  		<label for="elname">Last name:</label><br>
+  		<input type="text" id="elname" name="elname" placeholder="last name" required><br>
+  		<label for="relation">Relationship:</label><br>
+  		<input type="text" id="relation" name="relation" placeholder="relation" required ><br>
+  		<label for="ephone">Contact Number:</label><br> 
+  		<input type="number" id="ephone" name="ephone" placeholder="Contact" required><br><br>
+		  <input type="submit" id="submitDetails" name="submitDetails" value="Submit" /><br>
+
+	</form>
+
+  <script src="js/annyang.min.js"></script>
+    <script>
+      if (annyang) {
+        var commands = {
+          'write firstname *tag':function(variable){
+              let fname = document.getElementById("fname");
+              fname.value=variable;
+          },
+          'write lastname *tag':function(variable){
+              let lname = document.getElementById("lname");
+              lname.value=variable;
+          },
+          'write address *tag':function(variable){
+              let address = document.getElementById("address");
+              address.value=variable;
+          },
+          'write city *tag':function(variable){
+              let city = document.getElementById("city");
+              city.value=variable;
+          },
+          'write state *tag':function(variable){
+              let state = document.getElementById("state");
+              state.value=variable;
+          },
+          'write pin *tag':function(variable){
+              let pin = document.getElementById("pin");
+              pin.value=variable;
+          },
+          'write country *tag':function(variable){
+              let country = document.getElementById("country");
+              country.value=variable;
+          },
+          'write phone *tag':function(variable){
+              let phone = document.getElementById("phone");
+              phone.value=variable;
+          },
+          'write email *tag':function(variable){
+              let email = document.getElementById("email");
+              email.value=variable.split(" ").join("");
+          }
+          
+        };
+
+        // Add our commands to annyang
+        annyang.addCommands(commands);
+}
+        // Start listening. You can call this here, or attach this call to an event, button, etc.
+        annyang.start();
+      
+    </script>
+
+</body>
+</html>
