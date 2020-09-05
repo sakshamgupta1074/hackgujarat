@@ -9,7 +9,8 @@ from six.moves import queue
 import pyttsx3
 import pytz
 import subprocess
-
+import time
+import json
 # Audio recording parameters
 RATE = 16000
 CHUNK = int(RATE / 10)  # 100ms
@@ -84,8 +85,48 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
+def listen_return(responses):
+    num_chars_printed=0
+    for response in responses:
+        if not response.results:
+            continue
+
+        # The `results` list is consecutive. For streaming, we only care about
+        # the first result being considered, since once it's `is_final`, it
+        # moves on to considering the next utterance.
+        result = response.results[0]
+        if not result.alternatives:
+            continue
+
+        # Display the transcription of the top alternative.
+        transcript = result.alternatives[0].transcript
+
+        # Display interim results, but with a carriage return at the end of the
+        # line, so subsequent lines will overwrite them.
+        #
+        # If the previous result was longer than this one, we need to print
+        # some extra spaces to overwrite the previous result
+        overwrite_chars = ' ' * (num_chars_printed - len(transcript))
+        if not result.is_final:
+            sys.stdout.write(transcript + overwrite_chars + '\r')
+            sys.stdout.flush()
+
+            num_chars_printed = len(transcript)
+
+        else:
+            return transcript 
+
 def listen_print_loop(responses):
     print("Listening")
+    userdetails = {   
+        "fname":"First Name",
+        "lname":"Last Name",
+        "age":"Age",
+        "gender":"Gender",
+        "symptoms":"Symptoms",
+        "medical":"Medical History",
+        "contact":"Contact"
+    }
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -121,7 +162,7 @@ def listen_print_loop(responses):
         # If the previous result was longer than this one, we need to print
         # some extra spaces to overwrite the previous result
         overwrite_chars = ' ' * (num_chars_printed - len(transcript))
-        WAKE = "Apple"
+        WAKE = "new registration"
         if not result.is_final:
             sys.stdout.write(transcript + overwrite_chars + '\r')
             sys.stdout.flush()
@@ -132,12 +173,44 @@ def listen_print_loop(responses):
             print(transcript)
 
             if transcript.count(WAKE) > 0:
-                speak("Hello How Can I help you today")
+                speak("Enter First Name")
+                transcript=listen_return(responses)
+                userdetails['fname']=transcript
+                time.sleep(2)
+                speak("Enter Last Name")
+                transcript=listen_return(responses)
+                userdetails['lname']=transcript
+                time.sleep(2)
+                speak("Enter your age")
+                transcript=listen_return(responses)
+                userdetails['age']=transcript
+                time.sleep(2)
+                speak("Specify your gender")
+                transcript=listen_return(responses)
+                userdetails['gender']=transcript
+                time.sleep(3)
+                speak("What are the symptoms you are experiencing ")
+                transcript=listen_return(responses)
+                userdetails['symptoms']=transcript
+                time.sleep(4)
+                speak("Mention past medical history")
+                transcript=listen_return(responses)
+                userdetails['medical']=transcript
+                time.sleep(4)
+                speak("Enter your contact number")
+                transcript=listen_return(responses)
+                userdetails['contact']=transcript
+                time.sleep(3)
+                print(userdetails)
+                details=json.dumps(userdetails)
+                with open('responses.json', 'w') as outfile:
+                    json.dump(details, outfile)
+                break
                 # print(transcript)
 
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
-            if re.search(r'\b(exit|quit|Bye)\b', transcript, re.I):
+            if re.search(r'\b(exit|submit)\b', transcript, re.I):
                 print('Exiting..')
                 break
 
@@ -148,8 +221,8 @@ def listen_print_loop(responses):
 def main():
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
-    language_code = 'en-IN'  # a BCP-47 language tag
 
+    language_code = 'en-IN'  # a BCP-47 language tag
     client = speech.SpeechClient()
     config = types.RecognitionConfig(
         encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
