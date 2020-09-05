@@ -1,29 +1,10 @@
-const http = require('http');
-const fs = require('fs');
-
-const hostname = '127.0.0.1';
-const port = 8080;
-
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  fs.readFile('index.html', function(error, data){
-  	if (error) {
-  		res.writeHead(404);
-  		res.write('Error: File not found');
-  	} else {
-  		res.write(data);
-  	}
-  	res.end();
-  });
+let {PythonShell} = require('python-shell')
+PythonShell.run('stts_rlt.py', null, function (err) {
+  if (err) throw err;
+  console.log('finished');
 });
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-})
-
 var express=require("express"); 
-var bodyParser=require("body-parser"); 
-
+var bodyParser=require("body-parser");
 const mongoose = require('mongoose'); 
 mongoose.connect('mongodb://localhost:27017/form'); 
 var db=mongoose.connection; 
@@ -91,7 +72,7 @@ res.set({
 	'Access-control-Allow-Origin': '*'
 	}); 
 return res.redirect( 'index.html' ); 
-}).listen(8080) 
+}).listen(3000) 
 
 
 console.log("server listening at port 8080"); 

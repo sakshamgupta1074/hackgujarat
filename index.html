@@ -4,6 +4,7 @@
 	<title>Form</title>
 </head>
 <body>
+    <script type="module" src="hackguj.js"></script>
 		<form action= "/registration" method="post">
 		<h1> Registration Form</h1>
 <label for="fname">First name:</label><br>
@@ -50,56 +51,7 @@
 
 	</form>
 
-  <script src="js/annyang.min.js"></script>
-    <script>
-      if (annyang) {
-        var commands = {
-          'write firstname *tag':function(variable){
-              let fname = document.getElementById("fname");
-              fname.value=variable;
-          },
-          'write lastname *tag':function(variable){
-              let lname = document.getElementById("lname");
-              lname.value=variable;
-          },
-          'write address *tag':function(variable){
-              let address = document.getElementById("address");
-              address.value=variable;
-          },
-          'write city *tag':function(variable){
-              let city = document.getElementById("city");
-              city.value=variable;
-          },
-          'write state *tag':function(variable){
-              let state = document.getElementById("state");
-              state.value=variable;
-          },
-          'write pin *tag':function(variable){
-              let pin = document.getElementById("pin");
-              pin.value=variable;
-          },
-          'write country *tag':function(variable){
-              let country = document.getElementById("country");
-              country.value=variable;
-          },
-          'write phone *tag':function(variable){
-              let phone = document.getElementById("phone");
-              phone.value=variable;
-          },
-          'write email *tag':function(variable){
-              let email = document.getElementById("email");
-              email.value=variable.split(" ").join("");
-          }
-          
-        };
-
-        // Add our commands to annyang
-        annyang.addCommands(commands);
-}
-        // Start listening. You can call this here, or attach this call to an event, button, etc.
-        annyang.start();
-      
-    </script>
+  <script type="module" src="hackguj.js"></script>
 
 </body>
 </html>
