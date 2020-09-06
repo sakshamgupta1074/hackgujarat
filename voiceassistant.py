@@ -122,7 +122,8 @@ def listen_return(responses):
 def listen_print_loop(responses):
     print("Listening")
     userdetails = {   
-        
+        'userinfo':
+        {
         "fname":"First Name",
         "lname":"Last Name",
         "age":"Age",
@@ -130,6 +131,8 @@ def listen_print_loop(responses):
         "symptoms":"Symptoms",
         "medical":"Medical History",
         "contact":"Contact"
+        }
+        
         
     }
     """Iterates through server responses and prints them.
@@ -180,31 +183,31 @@ def listen_print_loop(responses):
             if transcript.count(WAKE) > 0:
                 speak("Enter First Name")
                 transcript=listen_return(responses)
-                userdetails['fname']=transcript
+                userdetails['userinfo']['fname']=transcript
                 time.sleep(2)
                 speak("Enter Last Name")
                 transcript=listen_return(responses)
-                userdetails['lname']=transcript
+                userdetails['userinfo']['lname']=transcript
                 time.sleep(2)
                 speak("Enter your age")
                 transcript=listen_return(responses)
-                userdetails['age']=transcript
+                userdetails['userinfo']['age']=transcript
                 time.sleep(2)
                 speak("Specify your gender")
                 transcript=listen_return(responses)
-                userdetails['gender']=transcript
+                userdetails['userinfo']['gender']=transcript
                 time.sleep(3)
                 speak("What are the symptoms you are experiencing ")
                 transcript=listen_return(responses)
-                userdetails['symptoms']=transcript
+                userdetails['userinfo']['symptoms']=transcript
                 time.sleep(4)
                 speak("Mention past medical history")
                 transcript=listen_return(responses)
-                userdetails['medical']=transcript
+                userdetails['userinfo']['medical']=transcript
                 time.sleep(4)
                 speak("Enter your contact number")
                 transcript=listen_return(responses)
-                userdetails['contact']=transcript
+                userdetails['userinfo']['contact']=transcript
                 time.sleep(3)
                 print(userdetails)
                 with open('responses.json', 'w') as outfile:
@@ -243,5 +246,3 @@ def main():
 
         # Now, put the transcription responses to use.
         listen_print_loop(responses)
-
-
