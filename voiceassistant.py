@@ -12,6 +12,8 @@ import subprocess
 import time
 import json
 import os
+import webbrowser
+
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'demo.json'
 # Audio recording parameters
@@ -181,35 +183,41 @@ def listen_print_loop(responses):
             print(transcript)
 
             if transcript.count(WAKE) > 0:
+                webbrowser.open('https://sakshamgupta1074.github.io/')
                 speak("Enter First Name")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['fname']=transcript
                 time.sleep(2)
+                webbrowser.open('https://sakshamgupta1074.github.io/departments.html',0)
                 speak("Enter Last Name")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['lname']=transcript
                 time.sleep(2)
+                webbrowser.open('https://sakshamgupta1074.github.io/blog-home.html',0)
                 speak("Enter your age")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['age']=transcript
                 time.sleep(2)
+                webbrowser.open('https://sakshamgupta1074.github.io/blog-home.html',0)
                 speak("Specify your gender")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['gender']=transcript
                 time.sleep(3)
+                webbrowser.open('https://sakshamgupta1074.github.io/blog-home.html',0)
                 speak("What are the symptoms you are experiencing ")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['symptoms']=transcript
                 time.sleep(4)
+                webbrowser.open('https://sakshamgupta1074.github.io/blog-home.html',0)
                 speak("Mention past medical history")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['medical']=transcript
                 time.sleep(4)
+                webbrowser.open('https://sakshamgupta1074.github.io/blog-home.html',0)
                 speak("Enter your contact number")
                 transcript=listen_return(responses)
                 userdetails['userinfo']['contact']=transcript
                 time.sleep(3)
-                print(userdetails)
                 with open('responses.json', 'w') as outfile:
                     json.dump(userdetails, outfile)
                 break
