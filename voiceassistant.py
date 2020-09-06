@@ -122,6 +122,7 @@ def listen_return(responses):
 def listen_print_loop(responses):
     print("Listening")
     userdetails = {   
+        
         "fname":"First Name",
         "lname":"Last Name",
         "age":"Age",
@@ -129,6 +130,7 @@ def listen_print_loop(responses):
         "symptoms":"Symptoms",
         "medical":"Medical History",
         "contact":"Contact"
+        
     }
     """Iterates through server responses and prints them.
 
@@ -205,9 +207,8 @@ def listen_print_loop(responses):
                 userdetails['contact']=transcript
                 time.sleep(3)
                 print(userdetails)
-                details=json.dumps(userdetails)
                 with open('responses.json', 'w') as outfile:
-                    json.dump(details, outfile)
+                    json.dump(userdetails, outfile)
                 break
                 # print(transcript)
 
@@ -242,4 +243,5 @@ def main():
 
         # Now, put the transcription responses to use.
         listen_print_loop(responses)
+
 
