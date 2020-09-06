@@ -10,7 +10,7 @@ db = myclient["patients"]
 
 Collection = db["data"] 
   
-with open('result.json') as file: 
+with open('responses.json') as file: 
     file_data = json.load(file) 
       
 if isinstance(file_data, list): 
